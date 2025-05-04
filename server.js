@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
@@ -6,15 +6,17 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
-
-// Use environment variable or default fallback
 const port = process.env.PORT || 5000;
 const contactsFile = process.env.CONTACTS_FILE || 'contacts.json';
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// POST route to save contact form data
+// Add this route to handle root requests
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend server!');
+});
+
 app.post('/api/contact', (req, res) => {
   const { name, number, email } = req.body;
 
